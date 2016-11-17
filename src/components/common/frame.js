@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * 脚手架
  */
-class Nav extends React.Component {
+class Frame extends React.Component {
     render () {
         return (
             <div className="wrap">
@@ -25,4 +25,4 @@ class Nav extends React.Component {
     }
 }
 
-export default Nav;
+export default Frame;
