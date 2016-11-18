@@ -1,4 +1,6 @@
 import React from 'react';
+import style from './frame.css';
+
 
 /**
  * 脚手架
@@ -7,10 +9,14 @@ class Frame extends React.Component {
     render () {
         return (
             <div className="wrap">
-                <div className="layout-header">
-                    <div className="ant-layout-wrapper">
-                        <div className="ant-layout-logo"></div>
-                        <p>asdadadasda</p>
+                <div className={style.layoutHeader}>
+                    <div className={style.logo}></div>
+                    <div className={style.title}>百愚网</div>
+                    <div className={style.menuAction}>
+                        <span>发布活动</span> |
+                        <span>登录</span> |
+                        <span>注册</span> |
+                        <span>帮助</span>
                     </div>
                 </div>
 

@@ -1,5 +1,7 @@
 import './index.html';
 import './index.css';
+import 'normalize.css';
+
 import dva from 'dva';
 
 // 1. Initialize
