@@ -1,8 +1,14 @@
 import React from 'react';
-import './home.css';
-import { Carousel, Form, Icon, Input, Button } from 'antd';
+import style from './home.css';
+import { Carousel, Form, Icon, Input, Button , Select} from 'antd';
 
 const FormItem = Form.Item;
+const Option = Select.Option;
+
+function handleChange(value) {
+    console.log(`selected ${value}`);
+}
+
 const Home = Form.create()(React.createClass({
     handleSubmit(e) {
         e.preventDefault();
@@ -18,35 +24,43 @@ const Home = Form.create()(React.createClass({
         <div>
             <Carousel autoplay dots={false}>
                 <div>
-                    <img src="http://temp.im/1280x300" alt=""/>
+                    <img width={1280} height={400} src="http://temp.im/1280x400" alt=""/>
                 </div>
                 <div>
-                    <img src="http://temp.im/1280x300/FF9500/000" alt=""/>
+                    <img src="http://temp.im/1280x400/FF9500/000" alt=""/>
                 </div>
                 <div>
-                    <img src="http://temp.im/1280x300/007AFF/fff" alt=""/>
+                    <img src="http://temp.im/1280x400/007AFF/fff" alt=""/>
                 </div>
             </Carousel>
 
-            <Form inline onSubmit={this.handleSubmit}>
-                <FormItem>
-                    {getFieldDecorator('userName', {
-                        rules: [{ required: true, message: 'Please input your username!' }],
-                    })(
-                        <Input addonBefore={<Icon type="user" />} placeholder="Username" />
-                    )}
-                </FormItem>
-                <FormItem>
-                    {getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Please input your Password!' }],
-                    })(
-                        <Input addonBefore={<Icon type="lock" />} type="password" placeholder="Password" />
-                    )}
-                </FormItem>
-                <FormItem>
-                    <Button type="primary" htmlType="submit">Log in</Button>
-                </FormItem>
-            </Form>
+            <div className={style.searchBar}>
+                <Form inline onSubmit={this.handleSubmit}>
+                    <FormItem>
+                        <Select defaultValue="1" style={{ width: 145 }} onChange={handleChange}>
+                            <Option value="1">类别</Option>
+                            <Option value="2">Lucy</Option>
+                            <Option value="3">Yiminghe</Option>
+                        </Select>
+                    </FormItem>
+                    <FormItem>
+                        <Select defaultValue="1" style={{ width: 145 }} onChange={handleChange}>
+                            <Option value="1">城市</Option>
+                            <Option value="2">Lucy</Option>
+                            <Option value="3">Yiminghe</Option>
+                        </Select>
+                    </FormItem>
+                    <FormItem>
+                        <Input placeholder="Username" />
+                    </FormItem>
+                    <FormItem>
+                        <Input placeholder="Username" />
+                    </FormItem>
+                    <FormItem>
+                        <Button type="primary" htmlType="submit">搜索</Button>
+                    </FormItem>
+                </Form>
+            </div>
         </div>
 
         );
