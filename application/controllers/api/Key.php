@@ -27,6 +27,9 @@ class Key extends REST_Controller {
 
 
     public function index_get() {
+        $a = $this->testFunction('2');
+
+        echo $a;
         print_r($this->get());
         exit;
     }

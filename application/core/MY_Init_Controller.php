@@ -1,7 +1,8 @@
 <?php
-error_reporting(0);
 if (!defined('BASEPATH'))
     exit('No direct access allowed.');
+
+include APPPATH . 'core/MY_Auth_Controller.php';
 
 /**
  * MY_Init_Controller
@@ -11,8 +12,6 @@ if (!defined('BASEPATH'))
  * @version     1.0
  * @since       1.0 
  */
-require APPPATH . '/libraries/REST_Controller.php';
-
 class MY_Init_Controller extends MY_Auth_Controller {
 
     public function __construct() {
@@ -36,6 +35,10 @@ class MY_Init_Controller extends MY_Auth_Controller {
         $this->_data['msg'] = $msg;
         $this->response($this->_data, $code);
         exit;
+    }
+
+    public function testFunction ($a) {
+        return $a . '1';
     }
 
     /* end of function in parent */

@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('MY_Init_Controller', 'MY_Auth_Controller');
+// $autoload['libraries'] = array('MY_Init_Controller', 'MY_Auth_Controller');
 
 /*
 | -------------------------------------------------------------------

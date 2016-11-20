@@ -116,7 +116,7 @@ $config['enable_hooks'] = FALSE;
 */
 $config['subclass_prefix'] = 'MY_';
 
-$config['extended_controller_name'] = array('Auth_Controller', 'Init_Controller');
+// $config['extended_controller_name'] = array('Auth_Controller', 'Init_Controller');
 
 
 /*
