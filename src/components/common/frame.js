@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './frame.css';
+import { Link } from 'dva/router';
 
 
 /**
@@ -14,7 +15,7 @@ class Frame extends React.Component {
                     <div className={style.title}>百愚网</div>
                     <div className={style.menuAction}>
                         <span>发布活动</span> |
-                        <span>登录</span> |
+                        <span><Link to='/login'>登录</Link></span> |
                         <span>注册</span> |
                         <span>帮助</span>
                     </div>

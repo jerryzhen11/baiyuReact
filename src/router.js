@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Router, Route, IndexRoute, Link } from 'dva/router';
+import { Router, Route, IndexRoute } from 'dva/router';
 
 import Frame from './components/common/frame';
 import Home from './components/home';
-import Test from './components/test';
+import Login from './components/login';
 
 export default function({ history }) {
   return (
@@ -11,7 +11,7 @@ export default function({ history }) {
         <Route name="首页" path="/" components={Frame}>
             <IndexRoute components={Home} />
             <Route path="/home" component={Home} />
-            <Route path="/test" components={Test}></Route>
+            <Route path="/login" components={Login}></Route>
         </Route>
     </Router>
   );
