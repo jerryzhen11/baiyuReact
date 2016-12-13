@@ -15,12 +15,17 @@ function callback(key) {
 }
 
 function handleIndividualSubmit(){
-	console.log(1);
+	  e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
 }
 
-function handleBrandSubmit(){
+{/*function handleBrandSubmit(){
 	console.log(1);
-}
+}*/}
 
 const Login  = Form.create()(React.createClass({
 	getInitialState(){
@@ -28,42 +33,63 @@ const Login  = Form.create()(React.createClass({
 			passwordConsistency:false
 		}
 	},
+  checkMobile(rules,value,callback){
+    const regexp=/^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/;
+    if(!regexp.test(value)){
+      callback('wrong');
+    }else{
+      callback();
+    }
+  },
 	checkPassword(rules,value,callback){
-		const form=this.props.form;
-
+    const form = this.props.form;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Two passwords that you enter is inconsistent!');
+    } else {
+      callback();
+    }
+  },
+	checkConfirm(rule, value,callback){
+    const form = this.props.form;
+    if (value && this.state.passwordConsistency) {
+      form.validateFields(['confirm'], { force: true });
+    }
+    callback();
 	},
-	checkPasswordConfirm(event){
-		
-	},
-	handlePasswordBlur(event){
-		const value=event.target.value;
+  handlePasswordBlur(event){
+    const value=event.target.value;
+    console.log(value);
 		this.setState({
-			passwordConsistency:this.state.passwordConsistency||!value
+			passwordConsistency:this.state.passwordConsistency||!!value
 		});
 	},
     render() {
     	const { getFieldDecorator } = this.props.form;
     	const formItemLayout = {
-      		labelCol: { span: 6 },
-      		wrapperCol: { span: 6 },
+      		labelCol: { span: 4 },
+      		wrapperCol: { span: 12 },
     	};
     	const tailFormItemLayout = {
       		wrapperCol: {
         	span: 14,
-        	offset: 6,
+        	offset: 2,
       		},
    	 	};
     
         return (
             <div className={sty.container}>
-				<Tabs defaultActiveKey="Brand" onChange={callback}>
+				<Tabs defaultActiveKey="Individual" onChange={callback}>
     				<TabPane className={sty.tab} tab="个人用户注册" key="Individual">
-    					<Form horizontal onSubmit={handleIndividualSubmit}>
+              <div >
+    					<Form className={sty.individualForm} horizontal onSubmit={handleIndividualSubmit}>
     						<FormItem {...formItemLayout} label="手机号">
     							<Row gutter={8}>
     								<Col span={12}>
     									{getFieldDecorator('phone', {
-            								rules: [{ required: true, message: 'Please input your phone number!' }],
+            								rules: [
+                            { required: true, message: 'Please input your phone number!' },
+                            { validator:this.checkMobile,message:'wrong pattern'}
+                            ],
           								})(
             							<Input  />
           							)}
@@ -80,7 +106,7 @@ const Login  = Form.create()(React.createClass({
             						<Input  />
           						)}
           					</FormItem>
-          					<FormItem {...formItemLayout} label="E-mail">
+          					<FormItem {...formItemLayout} label="E-mail" hasFeedback>
           						{getFieldDecorator('E-mail', {
             						rules: [
             							{type:'email',message:'The input is not valid E-mail!'},
@@ -90,23 +116,29 @@ const Login  = Form.create()(React.createClass({
             						<Input  />
           						)}
           					</FormItem>
-          					<FormItem {...formItemLayout} label="昵称">
+          					<FormItem {...formItemLayout} label="昵称" hasFeedback>
           						{getFieldDecorator('nickname', {
             						rules: [{ required: true, message: 'Please input your captcha!' }],
           						})(
             						<Input  />
           						)}
           					</FormItem>	
-          					<FormItem {...formItemLayout} label="密码">
+          					<FormItem {...formItemLayout} label="密码" hasFeedback>
           						{getFieldDecorator('password', {
-            						rules: [{ required: true, message: 'Please input your captcha!' }],
+            						rules: [
+                        { required: true, message: 'Please input your captcha!' },
+                        {  validator: this.checkConfirm, }
+                        ],
           						})(
-            						<Input type='password'  />
+            						<Input type='password' onBlur={this.handlePasswordBlur} />
           						)}
           					</FormItem>	
-          					<FormItem {...formItemLayout} label="密码确认">
-          						{getFieldDecorator('password-confirm', {
-            						rules: [{ required: true, message: 'Please input your captcha!' }],
+          					<FormItem {...formItemLayout} label="密码确认" hasFeedback>
+          						{getFieldDecorator('confirm', {
+            						rules: [
+                        { required: true, message: 'Please input your captcha!' },
+                        { validator: this.checkPassword, }
+                        ],
           						})(
             						<Input type='password'  />
           						)}
@@ -120,8 +152,15 @@ const Login  = Form.create()(React.createClass({
           						<Button type="primary" htmlType="submit" size="large">注册</Button>
         					</FormItem>			
     					</Form>
+               <div className={sty.quickAccess}>
+                <p className={sty.quickTitle}>快速登录</p>
+                  <section>
+                   <div className={sty.wechat}>微信登录</div>
+                  </section>
+                </div>
+              </div>
     				</TabPane>
-    				<TabPane tab="品牌用户注册" key="Brand">
+    				{/*<TabPane tab="品牌用户注册" key="Brand">
     					<Form horizontal onSubmit={handleBrandSubmit}>
     						<FormItem {...formItemLayout} label="品牌名称">
     							<Row gutter={8}>
@@ -144,7 +183,7 @@ const Login  = Form.create()(React.createClass({
     						<FormItem {...formItemLayout} label="手机号">
     							<Row gutter={8}>
     								<Col span={12}>
-    									{getFieldDecorator('phone', {
+    									{getFieldDecorator('mobile', {
             								rules: [{ required: true, message: 'Please input your phone number!' }],
           								})(
             							<Input  />
@@ -191,7 +230,8 @@ const Login  = Form.create()(React.createClass({
                             </Row>
                         </FormItem>
     				</Form>
-    			</TabPane>
+           
+    			</TabPane>*/}
     		</Tabs>
     	</div>
 		);

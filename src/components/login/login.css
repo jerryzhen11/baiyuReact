@@ -3,12 +3,45 @@
 	width: 50px;
 }
 .container{
-	margin-top: 50px;
+	margin-top: 45px;
 }
 .tab{
 	margin-left: 25px;
 	font-size: 40px;
 }
-.ant-select-selection-selected-value {
-  width: 70px;
+.individualForm{
+	width: 50%;
+	float: left;
+	border-right: 1px solid #c8c8c8;
+}
+.quickAccess{
+	width: 50%;
+	float: left;
+}
+.quickTitle{
+	margin-left: 80px;
+	font-size: 18px;
+}
+.wechat{
+	margin-left: 40%;
+	margin-top: 85px;
+	font-size: 15px;
+	width: 25%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	border-radius:5px;
+	cursor: pointer;
+	position: relative;
+	background-color: #00d00d;
+	color: white;
+}
+.wechat:before{
+	content:'';
+	background-image: url('https://lh3.ggpht.com/zC5Q4atR1JytzagSPIPAg-z4uItJGsTVjZHvf9nSeGdwrwnuPPW_OqMk6FAI3DJvzQ=w300');
+	background-size: 50px 50px;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	left: -70px;
 }
